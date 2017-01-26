@@ -33,7 +33,7 @@ namespace CollegeFB_Stats.GetAddMethodClasses
          *      Calls UseExistingPlayer() if existing
          *      Calls GetPlayerInfo() if new
          **************************************************/
-        private bool NewOrExistingPlayer(bool validSelection)
+        public bool NewOrExistingPlayer(bool validSelection)
         {
             int addOrCreatePlayer = 0;
 
@@ -74,7 +74,7 @@ namespace CollegeFB_Stats.GetAddMethodClasses
          *      Calls UseExistingTeam() if existing
          *      Calls GetTeamInfo() if new
          ***********************************************/
-        private void NewOrExistingTeam()
+        public void NewOrExistingTeam()
         {
             int addOrCreateTeam = 0;
 
@@ -106,7 +106,7 @@ namespace CollegeFB_Stats.GetAddMethodClasses
          * DisplayPlayers()
          *      Gets and displays list of player names
          ***********************************************/
-        private void DisplayPlayers()
+        public void DisplayPlayers()
         {
             //Get and display existing players
             Console.WriteLine("Existing Players: \n");
@@ -124,7 +124,7 @@ namespace CollegeFB_Stats.GetAddMethodClasses
         * DisplayTeams()
         *      Gets and displays list of team names
         ***********************************************/
-        private void DisplayTeams()
+        public void DisplayTeams()
         {
             //Get and display existing players
             Console.WriteLine("Existing Teams: \n");
@@ -143,7 +143,7 @@ namespace CollegeFB_Stats.GetAddMethodClasses
          *      Gets category of stats to be entered
          *      Calls [Category]Stats()
          ***********************************************/
-        private static void GetStatsCategory()
+        public static void GetStatsCategory()
         {
             int category;
             bool valid = false;
