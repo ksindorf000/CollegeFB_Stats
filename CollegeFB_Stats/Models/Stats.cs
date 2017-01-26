@@ -47,7 +47,7 @@ namespace CollegeFB_Stats.Models
         public int FGA { get; set; } = 0;
         public double FG_Percent { get; set; } = 0;
         public int UnderTwenty { get; set; } = 0;
-        public double TwentyToTwentyNine { get; set; } = 0;
+        public int TwentyToTwentyNine { get; set; } = 0;
         public int ThirtyToThirtyNine { get; set; } = 0;
         public int FourtyToFourtyNine { get; set; } = 0;
         public int FiftyUp { get; set; } = 0;

@@ -53,9 +53,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CFBStatsContext.cs" />
+    <Compile Include="GetAddMethodClasses\GetAddPass_Stats.cs" />
+    <Compile Include="GetAddMethodClasses\GetAddPlayer.cs" />
+    <Compile Include="GetAddMethodClasses\GetAddTeam.cs" />
+    <Compile Include="GetAddMethodClasses\InitialGet_Stats.cs" />
     <Compile Include="Migrations\201701261756275_InitialStructure.cs" />
     <Compile Include="Migrations\201701261756275_InitialStructure.Designer.cs">
       <DependentUpon>201701261756275_InitialStructure.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201701261800069_ChangedAKickingStatFromDoubleToInt.cs" />
+    <Compile Include="Migrations\201701261800069_ChangedAKickingStatFromDoubleToInt.Designer.cs">
+      <DependentUpon>201701261800069_ChangedAKickingStatFromDoubleToInt.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Player.cs" />
@@ -72,7 +80,11 @@
     <EmbeddedResource Include="Migrations\201701261756275_InitialStructure.resx">
       <DependentUpon>201701261756275_InitialStructure.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201701261800069_ChangedAKickingStatFromDoubleToInt.resx">
+      <DependentUpon>201701261800069_ChangedAKickingStatFromDoubleToInt.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
