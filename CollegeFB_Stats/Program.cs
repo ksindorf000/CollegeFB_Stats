@@ -22,9 +22,9 @@ namespace CollegeFB_Stats
             while (playOn)
             {
                 playOn = Menu();
+                Console.WriteLine("Your changes have been saved!");
+                Console.Clear();
             }
-
-            Console.WriteLine("Your changes have been saved!");
 
         }
 
@@ -41,7 +41,7 @@ namespace CollegeFB_Stats
             {
                 Console.WriteLine("What do you want to do? " +
                                     "\n \t Add a (P)layer" +
-                                                             // "\n \t Add a (T)eam" +
+                                    "\n \t Add a (T)eam" +
                                                              //"\n \t Add a (S)tat") +
                                     "\n \t (Q)uit");
                 menuOption = Console.ReadLine().ToString().ToLower();
@@ -53,9 +53,9 @@ namespace CollegeFB_Stats
                 case "p":
                     currentPlayer = GetAddPlayer.GetPlayerInfo();
                     break;
-                //case "t":
-                //    GetAddTeam.GetTeamInfo();
-                //    break;
+                case "t":
+                    GetAddTeam.GetTeamInfo();
+                    break;
                 //case "s":
                 //    InitialGet_Stats.InitialInfo();
                 //    break;
@@ -66,6 +66,7 @@ namespace CollegeFB_Stats
                     Console.WriteLine("Sorry, that is not a valid option.");
                     break;
             }
+
             return playOn;
         }
         

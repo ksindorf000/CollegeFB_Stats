@@ -69,6 +69,7 @@ namespace CollegeFB_Stats.GetAddMethodClasses
                 };
 
                 db.Team.Add(team);
+                db.SaveChanges();
             }
         }
 
