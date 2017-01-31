@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CollegeFB_Stats.Models;
 
 namespace CollegeFB_Stats.GetAddMethodClasses
 {
@@ -16,12 +17,11 @@ namespace CollegeFB_Stats.GetAddMethodClasses
          *      Call Get...() if create new
          *      Call GetStatsCategory()
          **************************************************/
-        public void InitialInfo()
+        public static void InitialInfo(Player currentPlayer)
         {
-            bool validSelection = false;
-            validSelection = NewOrExistingPlayer(validSelection);
+            NewOrExistingPlayer();
 
-            NewOrExistingTeam();
+           // NewOrExistingTeam();
 
             GetStatsCategory();
         }
@@ -33,8 +33,9 @@ namespace CollegeFB_Stats.GetAddMethodClasses
          *      Calls UseExistingPlayer() if existing
          *      Calls GetPlayerInfo() if new
          **************************************************/
-        public bool NewOrExistingPlayer(bool validSelection)
+        public static void NewOrExistingPlayer()
         {
+            bool validSelection = false;
             int addOrCreatePlayer = 0;
 
             DisplayPlayers();
@@ -61,10 +62,8 @@ namespace CollegeFB_Stats.GetAddMethodClasses
                         validSelection = false;
                     }
                 }
-
             }
 
-            return validSelection;
         }
 
         /**********************************************
@@ -106,7 +105,7 @@ namespace CollegeFB_Stats.GetAddMethodClasses
          * DisplayPlayers()
          *      Gets and displays list of player names
          ***********************************************/
-        public void DisplayPlayers()
+        public static void DisplayPlayers()
         {
             //Get and display existing players
             Console.WriteLine("Existing Players: \n");
@@ -124,7 +123,7 @@ namespace CollegeFB_Stats.GetAddMethodClasses
         * DisplayTeams()
         *      Gets and displays list of team names
         ***********************************************/
-        public void DisplayTeams()
+        public static void DisplayTeams()
         {
             //Get and display existing players
             Console.WriteLine("Existing Teams: \n");
@@ -159,16 +158,16 @@ namespace CollegeFB_Stats.GetAddMethodClasses
                 switch (category)
                 {
                     case 1:
-                        GetAddPass_Stats.GetPassingStats();
+                        //GetAddPass_Stats.GetPassingStats();
                         break;
                     case 2:
-                        GetAddRush_Stats.GetRushStats();
+                        //GetAddRush_Stats.GetRushStats();
                         break;
                     case 3:
-                        GetAddRec_Stats.GetRecStats();
+                        //GetAddRec_Stats.GetRecStats();
                         break;
                     case 4:
-                        GetAddKick_Stats.GetKickStats();
+                        //GetAddKick_Stats.GetKickStats();
                         break;
                     default:
                         break;

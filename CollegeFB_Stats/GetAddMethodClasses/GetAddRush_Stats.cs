@@ -55,7 +55,7 @@ namespace CollegeFB_Stats.GetAddMethodClasses
                 valid = double.TryParse(Console.ReadLine(), out TD_Rush);
             };
 
-            AddRushingStats();
+            //AddRushingStats();
         }
 
     }

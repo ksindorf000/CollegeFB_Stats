@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CollegeFB_Stats.Models;
 
 namespace CollegeFB_Stats.GetAddMethodClasses
 {
@@ -15,7 +16,7 @@ namespace CollegeFB_Stats.GetAddMethodClasses
         static int FGA;
         static double FG_Percent;
         static int UnderTwenty;
-        static double TwentyToTwentyNine;
+        static int TwentyToTwentyNine;
         static int ThirtyToThirtyNine;
         static int FourtyToFourtyNine;
         static int FiftyUp;
@@ -25,7 +26,7 @@ namespace CollegeFB_Stats.GetAddMethodClasses
         /**********************************************
          * GetKICKINGStats()
          ***********************************************/
-        private static void GetKickingStats()
+        private static void GetKickingStats(Player currentPlayer)
         {
             bool valid = false;
 
@@ -81,7 +82,7 @@ namespace CollegeFB_Stats.GetAddMethodClasses
             while (!valid)
             {
                 Console.WriteLine("20-29: ");
-                valid = double.TryParse(Console.ReadLine(), out TwentyToTwentyNine);
+                valid = int.TryParse(Console.ReadLine(), out TwentyToTwentyNine);
             };
 
             valid = false;
@@ -119,9 +120,33 @@ namespace CollegeFB_Stats.GetAddMethodClasses
                 valid = int.TryParse(Console.ReadLine(), out PTS);
             };
 
-            AddKickingStats();
-
+            AddKickingStats(currentPlayer);
         }
+
+        private static void AddKickingStats(Player currentPlayer)
+        {
+            using (var context = new CFBStatsContext())
+            {
+                Stats record = context.Stats.First(p => p.PlayerId == currentPlayer.Id);
+
+                record.XPA = XPA;
+                record.XPM = XPM;
+                record.XP_Percent = XP_Percent;
+                record.FGM = FGM;
+                record.FG_Percent = FG_Percent;
+                record.UnderTwenty = UnderTwenty;
+                record.TwentyToTwentyNine = TwentyToTwentyNine;
+                record.ThirtyToThirtyNine = ThirtyToThirtyNine;
+                record.FourtyToFourtyNine = FourtyToFourtyNine;
+                record.FiftyUp = FiftyUp;
+                record.LNG = LNG;
+                record.PTS = PTS;
+
+                context.SaveChanges();
+
+            }
+        }
+
     }
 }
 

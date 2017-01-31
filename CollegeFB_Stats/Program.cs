@@ -4,70 +4,70 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CollegeFB_Stats.Models;
 
 namespace CollegeFB_Stats
 {
     class Program
     {
+        public static Player currentPlayer = new Player();
+        public static bool playOn = true;
+
+
         /*************************************
          * Main()
          *************************************/
         static void Main(string[] args)
         {
-            string menuOption;
-
-            bool playOn = true;
-
             while (playOn)
             {
-                menuOption = Menu();
-                CallGetAdd(menuOption);
-                playOn = SuccessMessage();
+                playOn = Menu();
             }
+
+            Console.WriteLine("Your changes have been saved!");
+
         }
 
         /*********************************************************
          * Menu()
          *      Determines which table user wants to add data to
          *********************************************************/
-        private static string Menu()
+        private static bool Menu()
         {
-            bool validOption = true;
+            bool validOption = false;
             string menuOption = "";
 
             while (!validOption)
             {
                 Console.WriteLine("What do you want to do? " +
-                                    "\n \t \t Add a (P)layer" +
-                                    "\n \t \t Add a (T)eam" +
-                                    "\n \t \t Add a (S)tat");
+                                    "\n \t Add a (P)layer" +
+                                                             // "\n \t Add a (T)eam" +
+                                                             //"\n \t Add a (S)tat") +
+                                    "\n \t (Q)uit");
                 menuOption = Console.ReadLine().ToString().ToLower();
-                validOption =
-                    (menuOption == "p" || menuOption == "t" || menuOption == "s")
-                    ? true : false;
+                validOption = (menuOption == "p" || menuOption == "t" || menuOption == "s" || menuOption == "q");
             }
 
-            return menuOption;
+            switch (menuOption)
+            {
+                case "p":
+                    currentPlayer = GetAddPlayer.GetPlayerInfo();
+                    break;
+                //case "t":
+                //    GetAddTeam.GetTeamInfo();
+                //    break;
+                //case "s":
+                //    InitialGet_Stats.InitialInfo();
+                //    break;
+                case "q":
+                    playOn = false;
+                    break;
+                default:
+                    Console.WriteLine("Sorry, that is not a valid option.");
+                    break;
+            }
+            return playOn;
         }
-
-        /*********************************************************
-         * CallGetAdd()
-         *      Calls the correct GetAdd... class
-         *********************************************************/
-        private static void CallGetAdd(string menuOption)
-        {
-            if (menuOption == "p")
-            {
-                GetAddPlayer.GetPlayerInfo();
-            }
-            else if (menuOption == "t")
-            {
-                GetAddTeam.GetTeamInfo();
-            }
-            else
-            {
-                InitialGet_Stats.InitialInfo();
-            }
-        }
+        
     }
 }

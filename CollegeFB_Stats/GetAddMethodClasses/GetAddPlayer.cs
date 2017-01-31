@@ -19,9 +19,9 @@ namespace CollegeFB_Stats.GetAddMethodClasses
          *      Get user input
          *      Calls CreatePlayer()
          *************************************/
-        public static void GetPlayerInfo()
+        public static Player GetPlayerInfo()
         {
-            bool validAge = true;
+            bool validAge = false;
 
             Console.WriteLine("Please enter player name: ");
             playerName = Console.ReadLine();
@@ -38,14 +38,15 @@ namespace CollegeFB_Stats.GetAddMethodClasses
                 validAge = int.TryParse(Console.ReadLine(), out age);
             }
 
-            CreatePlayer();
+            Player currentPlayer = CreatePlayer();
+            return currentPlayer;
         }
 
         /**********************************************
          * CreatePlayer()
          *      Adds user input to the Player table
          *********************************************/
-        private static void CreatePlayer()
+        private static Player CreatePlayer()
         {
             using (var db = new CFBStatsContext())
             {
@@ -58,6 +59,8 @@ namespace CollegeFB_Stats.GetAddMethodClasses
                 };
 
                 db.Player.Add(player);
+                db.SaveChanges();
+                return player;
             }
         }
 

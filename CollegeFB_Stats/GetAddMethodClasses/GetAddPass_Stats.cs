@@ -79,7 +79,7 @@ namespace CollegeFB_Stats.GetAddMethodClasses
                 valid = int.TryParse(Console.ReadLine(), out RAT);
             };
 
-            AddPassingStats();
+            //AddPassingStats();
 
         }
     }
