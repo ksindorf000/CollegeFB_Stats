@@ -69,19 +69,43 @@ namespace CollegeFB_Stats.GetAddMethodClasses
         *      Gets name of player from user
         *      Sets player Id
         ***********************************************/
-        public static void UseExistingPlayer()
+        public static Player UseExistingPlayer()
         {
             int playerId;
-            string nameFromUser;
+            bool validId = false;
 
-            Console.WriteLine("Which player would you like to add stats for? (First Last):");
-            nameFromUser = Console.ReadLine();
+            while (!validId)
+            {
+                Console.WriteLine("Which player would you like to add stats for? (ID):");
+                validId = int.TryParse(Console.ReadLine(), out playerId);
+            }
 
             //Gets p.Id from Player where p.Name LIKE user entry
             using (var context = new CFBStatsContext())
             {
                 var pId = context.Player.Where(p => p.Name.Contains(nameFromUser)).Select(p => p.Id);
                 playerId = int.Parse(pId.ToString());
+            }
+
+            Console.WriteLine();
+
+        }
+
+        /**********************************************
+         * DisplayPlayers()
+         *      Gets and displays list of player names
+         ***********************************************/
+        public static void DisplayPlayers()
+        {
+            //Get and display existing players
+            Console.WriteLine("Existing Players: \n");
+            using (var context = new CFBStatsContext())
+            {
+                var playersList = context.Player.Select(p => p.Name);
+                foreach (string p in playersList)
+                {
+                    Console.WriteLine(p);
+                };
             }
         }
     }

@@ -13,5 +13,11 @@ namespace CollegeFB_Stats.Models
         public string Position { get; set; }
         public int Age { get; set; }
         public string Class { get; set; } //True Fr, RedShirt Fr, Sr etc.
+
+        public override string ToString()
+        {
+            return $"ID: {Id} NAME:{Name}";
+        }
+
     }
 }

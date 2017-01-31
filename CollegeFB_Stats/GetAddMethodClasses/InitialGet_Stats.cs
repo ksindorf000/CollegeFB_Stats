@@ -9,7 +9,7 @@ namespace CollegeFB_Stats.GetAddMethodClasses
 {
     class InitialGet_Stats
     {
-
+        public static Player currentPlayer = new Player();
         /**************************************************
          * InitialInfo()
          *      Add or select from existing players/teams?
@@ -19,11 +19,11 @@ namespace CollegeFB_Stats.GetAddMethodClasses
          **************************************************/
         public static void InitialInfo(Player currentPlayer)
         {
-            NewOrExistingPlayer();
+            currentPlayer = NewOrExistingPlayer();
 
-           // NewOrExistingTeam();
+            // NewOrExistingTeam();
 
-            GetStatsCategory();
+            //GetStatsCategory();
         }
 
         /**************************************************
@@ -33,37 +33,39 @@ namespace CollegeFB_Stats.GetAddMethodClasses
          *      Calls UseExistingPlayer() if existing
          *      Calls GetPlayerInfo() if new
          **************************************************/
-        public static void NewOrExistingPlayer()
+        public static Player NewOrExistingPlayer()
         {
             bool validSelection = false;
             int addOrCreatePlayer = 0;
 
-            DisplayPlayers();
+            GetAddPlayer.DisplayPlayers();
 
             while (!validSelection)
             {
                 Console.WriteLine("Do you want to (1)Add to current Player (2)Create new Player? ");
                 validSelection = int.TryParse(Console.ReadLine(), out addOrCreatePlayer);
-
+                
                 if (validSelection)
                 {
-                    if (addOrCreatePlayer == 1) //Use existing
+                    switch (addOrCreatePlayer)
                     {
-                        GetAddPlayer.UseExistingPlayer();
-                        validSelection = true;
-                    }
-                    else if (addOrCreatePlayer == 2) //Create new
-                    {
-                        GetAddPlayer.GetPlayerInfo();
-                        validSelection = true;
-                    }
-                    else
-                    {
-                        validSelection = false;
+                        case 1:
+                            currentPlayer = GetAddPlayer.UseExistingPlayer();
+                            validSelection = true;
+                            break;
+
+                        case 2:
+                            GetAddPlayer.GetPlayerInfo();
+                            validSelection = true;
+                            break;
+                        default:
+                            Console.WriteLine("That is not a valid option.");
+                            validSelection = false;
+                            break;
                     }
                 }
             }
-
+            return currentPlayer;
         }
 
         /**********************************************
@@ -85,7 +87,7 @@ namespace CollegeFB_Stats.GetAddMethodClasses
                 Console.WriteLine("Do you want to (1)Add to current Team (2)Create new Team? ");
                 validSelection = int.TryParse(Console.ReadLine(), out addOrCreateTeam);
 
-                switch(addOrCreateTeam)
+                switch (addOrCreateTeam)
                 {
                     case 1:
                         GetAddTeam.UseExistingTeam();
@@ -96,28 +98,10 @@ namespace CollegeFB_Stats.GetAddMethodClasses
                     default:
                         break;
                 }
-                
-                }
-            }
-        
 
-        /**********************************************
-         * DisplayPlayers()
-         *      Gets and displays list of player names
-         ***********************************************/
-        public static void DisplayPlayers()
-        {
-            //Get and display existing players
-            Console.WriteLine("Existing Players: \n");
-            using (var context = new CFBStatsContext())
-            {
-                var playersList = context.Player.Select(p => p.Name);
-                foreach (string p in playersList)
-                {
-                    Console.WriteLine(p);
-                };
             }
         }
+        
 
         /**********************************************
         * DisplayTeams()
