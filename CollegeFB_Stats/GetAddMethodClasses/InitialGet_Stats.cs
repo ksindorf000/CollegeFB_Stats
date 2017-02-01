@@ -11,6 +11,7 @@ namespace CollegeFB_Stats.GetAddMethodClasses
     {
         public static Player currentPlayer = new Player();
         public static Team currentTeam = new Team();
+        public static string season;
 
 
         /**************************************************
@@ -20,18 +21,17 @@ namespace CollegeFB_Stats.GetAddMethodClasses
          *      Stats category?
          *      
          **************************************************/
-        public static Player InitialInfo()
+        public static void InitialInfo()
         {
             currentPlayer = NewOrExistingPlayer();
 
             currentTeam = NewOrExistingTeam();
 
-            Console.WriteLine($"{currentPlayer} - {currentTeam}");
-            Console.ReadLine();
+            //Console.WriteLine($"{currentPlayer} - {currentTeam}");
+            //Console.ReadLine();
 
-            //GetStatsCategory(currentPlayer, currentTeam);
+            GetStatsCategory();
 
-            return currentPlayer;
         }
 
         /**************************************************
@@ -52,7 +52,7 @@ namespace CollegeFB_Stats.GetAddMethodClasses
             {
                 Console.WriteLine("Do you want to (1)Add to current Player (2)Create new Player? ");
                 validSelection = int.TryParse(Console.ReadLine(), out addOrCreatePlayer);
-                
+
                 if (validSelection)
                 {
                     switch (addOrCreatePlayer)
@@ -117,11 +117,12 @@ namespace CollegeFB_Stats.GetAddMethodClasses
             }
             return currentTeam;
         }
-        
+
 
         /**********************************************
          * GetStatsCategory()
          *      Gets category of stats to be entered
+         *      Also gets season
          *      Calls [Category]Stats()
          ***********************************************/
         public static void GetStatsCategory()
@@ -129,30 +130,36 @@ namespace CollegeFB_Stats.GetAddMethodClasses
             int category;
             bool valid = false;
 
+            Console.WriteLine("Which season are these stats for? (2016-2017): ");
+            season = Console.ReadLine();
+            
             while (!valid)
             {
                 Console.WriteLine("Which type of stats would you like to add? " +
-                    "Your options are: \n \t \t " +
+                    "Your options are: \n \t " +
                     "(1)Passing, (2)Rushing, (3)Receiving, (4)Kicking");
 
                 valid = int.TryParse(Console.ReadLine(), out category);
 
-                switch (category)
+                if (valid)
                 {
-                    case 1:
-                        //GetAddPass_Stats.GetPassingStats();
-                        break;
-                    case 2:
-                        //GetAddRush_Stats.GetRushStats();
-                        break;
-                    case 3:
-                        //GetAddRec_Stats.GetRecStats();
-                        break;
-                    case 4:
-                        //GetAddKick_Stats.GetKickStats();
-                        break;
-                    default:
-                        break;
+                    switch (category)
+                    {
+                        case 1:
+                            GetAddPass_Stats.GetPassingStats(currentPlayer, currentTeam, season);
+                            break;
+                        case 2:
+                            //GetAddRush_Stats.GetRushStats();
+                            break;
+                        case 3:
+                            //GetAddRec_Stats.GetRecStats();
+                            break;
+                        case 4:
+                            //GetAddKick_Stats.GetKickStats();
+                            break;
+                        default:
+                            break;
+                    }
                 }
             }
 

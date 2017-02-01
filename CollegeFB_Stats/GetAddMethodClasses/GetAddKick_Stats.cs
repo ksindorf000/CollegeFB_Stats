@@ -26,7 +26,7 @@ namespace CollegeFB_Stats.GetAddMethodClasses
         /**********************************************
          * GetKICKINGStats()
          ***********************************************/
-        private static void GetKickingStats(Player currentPlayer)
+        private static void GetKickingStats(Player currentPlayer, Team currentTeam)
         {
             bool valid = false;
 
@@ -120,14 +120,20 @@ namespace CollegeFB_Stats.GetAddMethodClasses
                 valid = int.TryParse(Console.ReadLine(), out PTS);
             };
 
-            AddKickingStats(currentPlayer);
+            AddKickingStats(currentPlayer, currentTeam);
         }
 
-        private static void AddKickingStats(Player currentPlayer)
+        /***************************************************
+         * AddKickingStats()
+         *      Checks to see if record with currentTeam
+         *      && currentPlayer exists
+         *      Creates or Updates record as needed
+         **************************************************/
+        private static void AddKickingStats(Player currentPlayer, Team currentTeam)
         {
             using (var context = new CFBStatsContext())
             {
-                Stats record = context.Stats.First(p => p.PlayerId == currentPlayer.Id);
+                Stats record = context.Stats.First(s => s.PlayerId == currentPlayer.Id && s.TeamId == currentTeam.Id);
 
                 record.XPA = XPA;
                 record.XPM = XPM;
