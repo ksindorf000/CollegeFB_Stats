@@ -72,9 +72,9 @@
     <Compile Include="Migrations\201702010139410_AddedSeasonToStats.Designer.cs">
       <DependentUpon>201702010139410_AddedSeasonToStats.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201702010221135_ChangedSeasonFromIntToString.cs" />
-    <Compile Include="Migrations\201702010221135_ChangedSeasonFromIntToString.Designer.cs">
-      <DependentUpon>201702010221135_ChangedSeasonFromIntToString.cs</DependentUpon>
+    <Compile Include="Migrations\201702011350363_ChangedSeasonBackToInt.cs" />
+    <Compile Include="Migrations\201702011350363_ChangedSeasonBackToInt.Designer.cs">
+      <DependentUpon>201702011350363_ChangedSeasonBackToInt.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Player.cs" />
@@ -97,8 +97,8 @@
     <EmbeddedResource Include="Migrations\201702010139410_AddedSeasonToStats.resx">
       <DependentUpon>201702010139410_AddedSeasonToStats.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201702010221135_ChangedSeasonFromIntToString.resx">
-      <DependentUpon>201702010221135_ChangedSeasonFromIntToString.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201702011350363_ChangedSeasonBackToInt.resx">
+      <DependentUpon>201702011350363_ChangedSeasonBackToInt.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup />

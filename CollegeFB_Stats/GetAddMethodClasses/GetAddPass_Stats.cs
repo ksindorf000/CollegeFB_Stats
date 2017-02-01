@@ -21,7 +21,7 @@ namespace CollegeFB_Stats.GetAddMethodClasses
         /**********************************************
          * GetPASSINGStats()
          ***********************************************/
-        public static void GetPassingStats(Player currentPlayer, Team currentTeam, string season)
+        public static void GetPassingStats(Player currentPlayer, Team currentTeam, int season)
         {
             bool valid = false;
 
@@ -89,7 +89,7 @@ namespace CollegeFB_Stats.GetAddMethodClasses
          * AddPassingStats()
          *      Adds user input to the Stats table
          *****************************************/
-        private static void AddPassingStats(Player currentPlayer, Team currentTeam, string season)
+        private static void AddPassingStats(Player currentPlayer, Team currentTeam, int season)
         {
             using (var db = new CFBStatsContext())
             {

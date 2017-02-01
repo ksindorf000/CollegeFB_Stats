@@ -11,7 +11,7 @@ namespace CollegeFB_Stats.GetAddMethodClasses
     {
         public static Player currentPlayer = new Player();
         public static Team currentTeam = new Team();
-        public static string season;
+        public static int season;
 
 
         /**************************************************
@@ -130,8 +130,8 @@ namespace CollegeFB_Stats.GetAddMethodClasses
             int category;
             bool valid = false;
 
-            Console.WriteLine("Which season are these stats for? (2016-2017): ");
-            season = Console.ReadLine();
+            Console.WriteLine("Which season are these stats for? (2016): ");
+            season = int.Parse(Console.ReadLine());
             
             while (!valid)
             {
@@ -149,7 +149,7 @@ namespace CollegeFB_Stats.GetAddMethodClasses
                             GetAddPass_Stats.GetPassingStats(currentPlayer, currentTeam, season);
                             break;
                         case 2:
-                            //GetAddRush_Stats.GetRushStats();
+                            GetAddRush_Stats.GetRushStats(currentPlayer, currentTeam, season);
                             break;
                         case 3:
                             //GetAddRec_Stats.GetRecStats();
