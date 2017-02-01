@@ -24,12 +24,12 @@ namespace CollegeFB_Stats.GetAddMethodClasses
         public static void InitialInfo()
         {
             currentPlayer = NewOrExistingPlayer();
+            Console.Clear();
 
             currentTeam = NewOrExistingTeam();
+            Console.Clear();
 
-            //Console.WriteLine($"{currentPlayer} - {currentTeam}");
-            //Console.ReadLine();
-
+            Console.WriteLine($"{currentPlayer} - {currentTeam} - {season}");
             GetStatsCategory();
 
         }
@@ -50,7 +50,7 @@ namespace CollegeFB_Stats.GetAddMethodClasses
 
             while (!validSelection)
             {
-                Console.WriteLine("Do you want to (1)Add to current Player (2)Create new Player? ");
+                Console.WriteLine("\nDo you want to (1)Add to current Player (2)Create new Player? ");
                 validSelection = int.TryParse(Console.ReadLine(), out addOrCreatePlayer);
 
                 if (validSelection)
@@ -92,7 +92,7 @@ namespace CollegeFB_Stats.GetAddMethodClasses
 
             while (!validSelection)
             {
-                Console.WriteLine("Are these stats for (1) an Existing Team or (2) a New Team? ");
+                Console.WriteLine("\nAre these stats for (1) an Existing Team or (2) a New Team? ");
                 validSelection = int.TryParse(Console.ReadLine(), out addOrCreate);
 
                 if (validSelection)
@@ -130,12 +130,12 @@ namespace CollegeFB_Stats.GetAddMethodClasses
             int category;
             bool valid = false;
 
-            Console.WriteLine("Which season are these stats for? (2016): ");
+            Console.WriteLine("\nWhich season are these stats for? (2016): ");
             season = int.Parse(Console.ReadLine());
             
             while (!valid)
             {
-                Console.WriteLine("Which type of stats would you like to add? " +
+                Console.WriteLine("\nWhich type of stats would you like to add? " +
                     "Your options are: \n \t " +
                     "(1)Passing, (2)Rushing, (3)Receiving, (4)Kicking");
 

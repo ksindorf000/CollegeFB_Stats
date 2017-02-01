@@ -23,6 +23,7 @@ namespace CollegeFB_Stats
             {
                 playOn = Menu();
                 Console.WriteLine("Your changes have been saved!");
+                Console.ReadLine();
                 Console.Clear();
             }
 
