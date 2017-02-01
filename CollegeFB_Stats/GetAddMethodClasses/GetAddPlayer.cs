@@ -13,6 +13,8 @@ namespace CollegeFB_Stats.GetAddMethodClasses
         static string position;
         static int age;
         static string schoolClass;
+        static Player currentPlayer = new Player();
+
 
         /**************************************
          * GetPlayerInfo()
@@ -73,7 +75,6 @@ namespace CollegeFB_Stats.GetAddMethodClasses
         {
             int playerId;
             bool validId = false;
-            Player currentPlayer = new Player();
 
             using (var db = new CFBStatsContext())
             {

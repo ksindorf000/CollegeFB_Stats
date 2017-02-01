@@ -152,10 +152,10 @@ namespace CollegeFB_Stats.GetAddMethodClasses
                             GetAddRush_Stats.GetRushStats(currentPlayer, currentTeam, season);
                             break;
                         case 3:
-                            //GetAddRec_Stats.GetRecStats();
+                            GetAddRec_Stats.GetRecStats(currentPlayer, currentTeam, season);
                             break;
                         case 4:
-                            //GetAddKick_Stats.GetKickStats();
+                            GetAddKick_Stats.GetKickStats(currentPlayer, currentTeam, season);
                             break;
                         default:
                             break;

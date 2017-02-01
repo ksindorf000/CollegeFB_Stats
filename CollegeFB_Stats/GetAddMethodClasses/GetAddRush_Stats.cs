@@ -80,7 +80,6 @@ namespace CollegeFB_Stats.GetAddMethodClasses
                     record.LONG_Rush = uLONG_Rush;
                     record.TD_Rush = uTD_Rush;
                 }
-
                 else
                 {
                     //Add new record
@@ -97,13 +96,9 @@ namespace CollegeFB_Stats.GetAddMethodClasses
                         TD_Rush = uTD_Rush
 
                     };
-
                     db.Stats.Add(record);
-
                 }
-
                 db.SaveChanges();
-
             }
         }
     }
