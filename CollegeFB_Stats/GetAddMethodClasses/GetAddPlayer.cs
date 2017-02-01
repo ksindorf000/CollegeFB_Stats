@@ -82,7 +82,7 @@ namespace CollegeFB_Stats.GetAddMethodClasses
                     Console.WriteLine("Which player would you like to add stats for? (ID):");
                     validId = int.TryParse(Console.ReadLine(), out playerId);
 
-                    if (db.Player.Any(p => p.Id == playerId))
+                    if (validId && db.Player.Any(p => p.Id == playerId))
                     {
                         currentPlayer = db.Player.First(p => p.Id == playerId);
                         validId = true;

@@ -17,12 +17,14 @@ namespace CollegeFB_Stats.GetAddMethodClasses
         static string league;
         static string mascot;
 
+        public static Team currentTeam = new Team();
+
         /**************************************
          * GetTeamInfo()
          *      Get user input
          *      Calls CreateTeam()
          *************************************/
-        public static void GetTeamInfo()
+        public static Team GetTeamInfo()
         {
             bool validYear = true;
 
@@ -47,14 +49,15 @@ namespace CollegeFB_Stats.GetAddMethodClasses
                 validYear = int.TryParse(Console.ReadLine(), out yearFormed);
             }
 
-            CreateTeam();
+            currentTeam = CreateTeam();
+            return currentTeam;
         }
 
         /*****************************************
          * CreateTeam()
          *      Adds user input to the Team table
          *****************************************/
-        private static void CreateTeam()
+        private static Team CreateTeam()
         {
             using (var db = new CFBStatsContext())
             {
@@ -70,6 +73,9 @@ namespace CollegeFB_Stats.GetAddMethodClasses
 
                 db.Team.Add(team);
                 db.SaveChanges();
+
+                return team;
+
             }
         }
 
@@ -78,34 +84,47 @@ namespace CollegeFB_Stats.GetAddMethodClasses
          *      Gets name of team from user
          *      Sets team Id
          ***********************************************/
-        public static void UseExistingTeam()
+        public static Team UseExistingTeam(Player currentPlayer)
         {
             int teamId;
-            string nameFromUser;
+            bool validId = false;
+            Team currentTeam = new Team();
 
-            Console.WriteLine("Which team would you like to add stats for? ");
-            nameFromUser = Console.ReadLine();
-
-            //Gets t.Id from Team where t.Name LIKE user entry
-            using (var context = new CFBStatsContext())
+            using (var db = new CFBStatsContext())
             {
-                var tId = context.Team.Where(t => t.Name.Contains(nameFromUser)).Select(t => t.Id);
-                teamId = int.Parse(tId.ToString());
+                while (!validId)
+                {
+                    Console.WriteLine("Which team would you like to add stats for? (ID):");
+                    validId = int.TryParse(Console.ReadLine(), out teamId);
+
+                    if (validId && db.Team.Any(t => t.Id == teamId))
+                    {
+                        currentTeam = db.Team.First(t => t.Id == teamId);
+                        validId = true;
+                        break;
+                    }
+                    else
+                    {
+                        Console.WriteLine("Sorry, that is not a valid option.");
+                        validId = false;
+                    }
+                }
             }
+
+            return currentTeam;
         }
-       
+
         /**********************************************
         * DisplayTeams()
         *      Gets and displays list of team names
         ***********************************************/
         public static void DisplayTeams()
         {
-            //Get and display existing players
+            //Get and display existing teams
             Console.WriteLine("Existing Teams: \n");
-            using (var context = new CFBStatsContext())
+            using (var db = new CFBStatsContext())
             {
-                var teamsList = context.Team.Select(t => t.Name);
-                foreach (string t in teamsList)
+                foreach (Team t in db.Team)
                 {
                     Console.WriteLine(t);
                 };

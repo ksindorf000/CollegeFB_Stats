@@ -16,7 +16,7 @@ namespace CollegeFB_Stats.Models
 
         public override string ToString()
         {
-            return $"ID: {Id} NAME:{Name}";
+            return $"ID: {Id} NAME: {Name}";
         }
 
     }

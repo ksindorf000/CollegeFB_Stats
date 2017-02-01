@@ -10,6 +10,8 @@ namespace CollegeFB_Stats.GetAddMethodClasses
     class InitialGet_Stats
     {
         public static Player currentPlayer = new Player();
+        public static Team currentTeam = new Team();
+
 
         /**************************************************
          * InitialInfo()
@@ -22,9 +24,12 @@ namespace CollegeFB_Stats.GetAddMethodClasses
         {
             currentPlayer = NewOrExistingPlayer();
 
-            // NewOrExistingTeam();
+            currentTeam = NewOrExistingTeam();
 
-            //GetStatsCategory();
+            Console.WriteLine($"{currentPlayer} - {currentTeam}");
+            Console.ReadLine();
+
+            //GetStatsCategory(currentPlayer, currentTeam);
 
             return currentPlayer;
         }
@@ -58,7 +63,7 @@ namespace CollegeFB_Stats.GetAddMethodClasses
                             break;
 
                         case 2:
-                            GetAddPlayer.GetPlayerInfo();
+                            currentPlayer = GetAddPlayer.GetPlayerInfo();
                             validSelection = true;
                             break;
                         default:
@@ -78,31 +83,39 @@ namespace CollegeFB_Stats.GetAddMethodClasses
          *      Calls UseExistingTeam() if existing
          *      Calls GetTeamInfo() if new
          ***********************************************/
-        public void NewOrExistingTeam()
+        public static Team NewOrExistingTeam()
         {
-            int addOrCreateTeam = 0;
-
             bool validSelection = false;
+            int addOrCreate = 0;
+
             GetAddTeam.DisplayTeams();
 
             while (!validSelection)
             {
-                Console.WriteLine("Are these stats for an (1)Existing Team or would you like to (2)Create new Team? ");
-                validSelection = int.TryParse(Console.ReadLine(), out addOrCreateTeam);
+                Console.WriteLine("Are these stats for (1) an Existing Team or (2) a New Team? ");
+                validSelection = int.TryParse(Console.ReadLine(), out addOrCreate);
 
-                switch (addOrCreateTeam)
+                if (validSelection)
                 {
-                    case 1:
-                        GetAddTeam.UseExistingTeam();
-                        break;
-                    case 2:
-                        GetAddTeam.GetTeamInfo();
-                        break;
-                    default:
-                        break;
-                }
+                    switch (addOrCreate)
+                    {
+                        case 1:
+                            currentTeam = GetAddTeam.UseExistingTeam(currentPlayer);
+                            validSelection = true;
+                            break;
 
+                        case 2:
+                            currentTeam = GetAddTeam.GetTeamInfo();
+                            validSelection = true;
+                            break;
+                        default:
+                            Console.WriteLine("That is not a valid option.");
+                            validSelection = false;
+                            break;
+                    }
+                }
             }
+            return currentTeam;
         }
         
 

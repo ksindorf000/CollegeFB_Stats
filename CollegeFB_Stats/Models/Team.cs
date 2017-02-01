@@ -15,5 +15,11 @@ namespace CollegeFB_Stats.Models
         public string CityState { get; set; }
         public string League { get; set; }
         public string Mascot { get; set; }
+
+        public override string ToString()
+        {
+            return $"ID: {Id} NAME: {Name} {Mascot}";
+        }
+
     }
 }
