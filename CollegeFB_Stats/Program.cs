@@ -57,7 +57,7 @@ namespace CollegeFB_Stats
                     GetAddTeam.GetTeamInfo();
                     break;
                 case "s":
-                    InitialGet_Stats.InitialInfo();
+                    currentPlayer = InitialGet_Stats.InitialInfo();
                     break;
                 case "q":
                     playOn = false;

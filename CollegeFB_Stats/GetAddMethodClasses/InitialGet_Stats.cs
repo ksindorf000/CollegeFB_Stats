@@ -10,20 +10,23 @@ namespace CollegeFB_Stats.GetAddMethodClasses
     class InitialGet_Stats
     {
         public static Player currentPlayer = new Player();
+
         /**************************************************
          * InitialInfo()
-         *      Add or select from existing players/teams?
-         *      Call Display...() if existing
-         *      Call Get...() if create new
-         *      Call GetStatsCategory()
+         *      New or Existing Player?
+         *      New or Existing Team?
+         *      Stats category?
+         *      
          **************************************************/
-        public static void InitialInfo(Player currentPlayer)
+        public static Player InitialInfo()
         {
             currentPlayer = NewOrExistingPlayer();
 
             // NewOrExistingTeam();
 
             //GetStatsCategory();
+
+            return currentPlayer;
         }
 
         /**************************************************
@@ -80,11 +83,11 @@ namespace CollegeFB_Stats.GetAddMethodClasses
             int addOrCreateTeam = 0;
 
             bool validSelection = false;
-            DisplayTeams();
+            GetAddTeam.DisplayTeams();
 
             while (!validSelection)
             {
-                Console.WriteLine("Do you want to (1)Add to current Team (2)Create new Team? ");
+                Console.WriteLine("Are these stats for an (1)Existing Team or would you like to (2)Create new Team? ");
                 validSelection = int.TryParse(Console.ReadLine(), out addOrCreateTeam);
 
                 switch (addOrCreateTeam)
@@ -102,24 +105,6 @@ namespace CollegeFB_Stats.GetAddMethodClasses
             }
         }
         
-
-        /**********************************************
-        * DisplayTeams()
-        *      Gets and displays list of team names
-        ***********************************************/
-        public static void DisplayTeams()
-        {
-            //Get and display existing players
-            Console.WriteLine("Existing Teams: \n");
-            using (var context = new CFBStatsContext())
-            {
-                var teamsList = context.Team.Select(t => t.Name);
-                foreach (string t in teamsList)
-                {
-                    Console.WriteLine(t);
-                };
-            }
-        }
 
         /**********************************************
          * GetStatsCategory()

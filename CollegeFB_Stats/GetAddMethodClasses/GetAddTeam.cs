@@ -93,5 +93,24 @@ namespace CollegeFB_Stats.GetAddMethodClasses
                 teamId = int.Parse(tId.ToString());
             }
         }
+       
+        /**********************************************
+        * DisplayTeams()
+        *      Gets and displays list of team names
+        ***********************************************/
+        public static void DisplayTeams()
+        {
+            //Get and display existing players
+            Console.WriteLine("Existing Teams: \n");
+            using (var context = new CFBStatsContext())
+            {
+                var teamsList = context.Team.Select(t => t.Name);
+                foreach (string t in teamsList)
+                {
+                    Console.WriteLine(t);
+                };
+            }
+        }
+
     }
 }

@@ -11,7 +11,8 @@ namespace CollegeFB_Stats.Models
         public int Id { get; set; }
         public int PlayerId { get; set; }
         public int TeamId { get; set; }
-
+        public int Season { get; set; }
+        
         //Virtual Accessers
         public virtual Player Player { get; set; }
         public virtual Team Team { get; set; }

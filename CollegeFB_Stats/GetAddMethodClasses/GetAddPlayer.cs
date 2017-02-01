@@ -66,29 +66,37 @@ namespace CollegeFB_Stats.GetAddMethodClasses
 
         /**********************************************
         * UseExistingPlayer()
-        *      Gets name of player from user
-        *      Sets player Id
+        *      Gets id of player from user
+        *      Sets currentPlayer
         ***********************************************/
         public static Player UseExistingPlayer()
         {
             int playerId;
             bool validId = false;
+            Player currentPlayer = new Player();
 
-            while (!validId)
+            using (var db = new CFBStatsContext())
             {
-                Console.WriteLine("Which player would you like to add stats for? (ID):");
-                validId = int.TryParse(Console.ReadLine(), out playerId);
+                while (!validId)
+                {
+                    Console.WriteLine("Which player would you like to add stats for? (ID):");
+                    validId = int.TryParse(Console.ReadLine(), out playerId);
+
+                    if (db.Player.Any(p => p.Id == playerId))
+                    {
+                        currentPlayer = db.Player.First(p => p.Id == playerId);
+                        validId = true;
+                        break;
+                    }
+                    else
+                    {
+                        Console.WriteLine("Sorry, that is not a valid option.");
+                        validId = false;
+                    }
+                }
             }
 
-            //Gets p.Id from Player where p.Name LIKE user entry
-            using (var context = new CFBStatsContext())
-            {
-                var pId = context.Player.Where(p => p.Name.Contains(nameFromUser)).Select(p => p.Id);
-                playerId = int.Parse(pId.ToString());
-            }
-
-            Console.WriteLine();
-
+            return currentPlayer;
         }
 
         /**********************************************
@@ -99,10 +107,9 @@ namespace CollegeFB_Stats.GetAddMethodClasses
         {
             //Get and display existing players
             Console.WriteLine("Existing Players: \n");
-            using (var context = new CFBStatsContext())
+            using (var db = new CFBStatsContext())
             {
-                var playersList = context.Player.Select(p => p.Name);
-                foreach (string p in playersList)
+                foreach (Player p in db.Player)
                 {
                     Console.WriteLine(p);
                 };

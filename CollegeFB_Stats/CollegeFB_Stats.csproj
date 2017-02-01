@@ -68,6 +68,10 @@
     <Compile Include="Migrations\201701261800069_ChangedAKickingStatFromDoubleToInt.Designer.cs">
       <DependentUpon>201701261800069_ChangedAKickingStatFromDoubleToInt.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201702010139410_AddedSeasonToStats.cs" />
+    <Compile Include="Migrations\201702010139410_AddedSeasonToStats.Designer.cs">
+      <DependentUpon>201702010139410_AddedSeasonToStats.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Player.cs" />
     <Compile Include="Models\Stats.cs" />
@@ -85,6 +89,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201701261800069_ChangedAKickingStatFromDoubleToInt.resx">
       <DependentUpon>201701261800069_ChangedAKickingStatFromDoubleToInt.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201702010139410_AddedSeasonToStats.resx">
+      <DependentUpon>201702010139410_AddedSeasonToStats.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup />
