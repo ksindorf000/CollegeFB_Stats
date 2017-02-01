@@ -29,7 +29,7 @@ namespace CollegeFB_Stats.GetAddMethodClasses
             currentTeam = NewOrExistingTeam();
             Console.Clear();
 
-            Console.WriteLine($"{currentPlayer} - {currentTeam} - {season}");
+            Console.WriteLine($"{currentPlayer} - {currentTeam}");
             GetStatsCategory();
 
         }
