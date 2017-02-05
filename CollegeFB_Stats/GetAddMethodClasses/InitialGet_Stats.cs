@@ -130,7 +130,7 @@ namespace CollegeFB_Stats.GetAddMethodClasses
             int category;
             bool valid = false;
 
-            Console.WriteLine("\nWhich season are these stats for? (2016): ");
+            Console.WriteLine("\nWhich season are these stats for? (YYYY): ");
             season = int.Parse(Console.ReadLine());
             
             while (!valid)

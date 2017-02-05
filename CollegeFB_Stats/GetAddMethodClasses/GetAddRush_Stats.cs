@@ -4,16 +4,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using CollegeFB_Stats.Models;
+using System.Data.Entity;
 
 namespace CollegeFB_Stats.GetAddMethodClasses
 {
     class GetAddRush_Stats
     {
-        static int uCAR;
-        static int uYDS_Rush;
-        static double uAVG_Rush;
-        static int uLONG_Rush;
-        static int uTD_Rush;
+        //static int uCAR;
+        //static int uYDS_Rush;
+        //static double uAVG_Rush;
+        //static int uLONG_Rush;
+        //static int uTD_Rush;
+
+        public static List<float> uInput = new List<float>();
 
         /**********************************************
          * GetRUSHStats()
@@ -22,39 +25,35 @@ namespace CollegeFB_Stats.GetAddMethodClasses
         {
             bool valid = false;
 
-            while (!valid)
+            float value;
+            List<string> rushStats = new List<string>()
             {
-                Console.WriteLine("CAR: ");
-                valid = int.TryParse(Console.ReadLine(), out uCAR);
+                "CAR",
+                "YDS_Rush",
+                "AVG_Rush",
+                "LONG_Rush",
+                "TD_Rush"
             };
 
-            valid = false;
-            while (!valid)
+            foreach (var stat in rushStats)
             {
-                Console.WriteLine("YDS: ");
-                valid = int.TryParse(Console.ReadLine(), out uYDS_Rush);
-            };
+                while (!valid)
+                {
+                    Console.WriteLine($"{stat}: ");
+                    valid = float.TryParse(Console.ReadLine(), out value);
 
-            valid = false;
-            while (!valid)
-            {
-                Console.WriteLine("AVG: ");
-                valid = double.TryParse(Console.ReadLine(), out uAVG_Rush);
-            };
-
-            valid = false;
-            while (!valid)
-            {
-                Console.WriteLine("LONG: ");
-                valid = int.TryParse(Console.ReadLine(), out uLONG_Rush);
-            };
-
-            valid = false;
-            while (!valid)
-            {
-                Console.WriteLine("TD: ");
-                valid = int.TryParse(Console.ReadLine(), out uTD_Rush);
-            };
+                    if (valid)
+                    {
+                        uInput.Add(value);
+                        break;
+                    }
+                    else
+                    {
+                        Console.WriteLine("That is not a valid value.");
+                    }
+                }
+                valid = false;
+            }
 
             AddRushStats(currentPlayer, currentTeam, season);
         }
@@ -74,28 +73,30 @@ namespace CollegeFB_Stats.GetAddMethodClasses
                     Stats record = db.Stats.First(s => s.PlayerId == currentPlayer.Id && s.TeamId == currentTeam.Id && s.Season == season);
 
                     //Update Record
-                    record.CAR = uCAR;
-                    record.YDS_Rush = uYDS_Rush;
-                    record.AVG_Rush = uAVG_Rush;
-                    record.LONG_Rush = uLONG_Rush;
-                    record.TD_Rush = uTD_Rush;
+                    record.CAR = (int)uInput[0];
+                    record.YDS_Rush = (int)uInput[1];
+                    record.AVG_Rush = (double)uInput[2];
+                    record.LONG_Rush = (int)uInput[3];
+                    record.TD_Rush = (int)uInput[4];
+
+                    db.Entry(record).State = EntityState.Modified;
                 }
                 else
                 {
                     //Add new record
                     Stats record = new Stats()
                     {
-                        Player = currentPlayer,
-                        Team = currentTeam,
+                        PlayerId = currentPlayer.Id,
+                        TeamId = currentTeam.Id,
                         Season = season,
 
-                        CAR = uCAR,
-                        YDS_Rush = uYDS_Rush,
-                        AVG_Rush = uAVG_Rush,
-                        LONG_Rush = uLONG_Rush,
-                        TD_Rush = uTD_Rush
-
+                        CAR = (int)uInput[0],
+                        YDS_Rush = (int)uInput[1],
+                        AVG_Rush = (double)uInput[2],
+                        LONG_Rush = (int)uInput[3],
+                        TD_Rush = (int)uInput[4]
                     };
+
                     db.Stats.Add(record);
                 }
                 db.SaveChanges();

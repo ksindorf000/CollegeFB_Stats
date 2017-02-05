@@ -4,16 +4,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using CollegeFB_Stats.Models;
+using System.Data.Entity;
 
 namespace CollegeFB_Stats.GetAddMethodClasses
 {
     class GetAddRec_Stats
     {
-        static int uREC;
-        static int uYDS_Rec;
-        static double uAVG_Rec;
-        static int uLONG_Rec;
+        //static int uREC;
+        //static int uYDS_Rec;
+        //static double uAVG_Rec;
+        //static int uLONG_Rec;
 
+        public static List<float> uInput = new List<float>();
 
         /**********************************************
          * GetRECStats()
@@ -22,32 +24,35 @@ namespace CollegeFB_Stats.GetAddMethodClasses
         {
             bool valid = false;
 
-            while (!valid)
+            float value;
+            List<string> recStats = new List<string>()
             {
-                Console.WriteLine("REC: ");
-                valid = int.TryParse(Console.ReadLine(), out uREC);
+                "REC",
+                "YDS_Rec",
+                "AVG_Rec",
+                "LONG_Rec"
             };
 
-            valid = false;
-            while (!valid)
+            foreach (var stat in recStats)
             {
-                Console.WriteLine("YDS: ");
-                valid = int.TryParse(Console.ReadLine(), out uYDS_Rec);
-            };
+                while (!valid)
+                {
+                    Console.WriteLine($"{stat}: ");
+                    valid = float.TryParse(Console.ReadLine(), out value);
 
-            valid = false;
-            while (!valid)
-            {
-                Console.WriteLine("AVG: ");
-                valid = double.TryParse(Console.ReadLine(), out uAVG_Rec);
-            };
+                    if (valid)
+                    {
+                        uInput.Add(value);
+                        break;
+                    }
+                    else
+                    {
+                        Console.WriteLine("That is not a valid value.");
+                    }
+                }
+                valid = false;
+            }
 
-            valid = false;
-            while (!valid)
-            {
-                Console.WriteLine("LONG: ");
-                valid = int.TryParse(Console.ReadLine(), out uLONG_Rec);
-            };
 
             AddRecStats(currentPlayer, currentTeam, season);
 
@@ -68,24 +73,27 @@ namespace CollegeFB_Stats.GetAddMethodClasses
                     Stats record = db.Stats.First(s => s.PlayerId == currentPlayer.Id && s.TeamId == currentTeam.Id && s.Season == season);
 
                     //Update Record
-                    record.REC = uREC;
-                    record.YDS_Rec = uYDS_Rec;
-                    record.AVG_Rec = uAVG_Rec;
-                    record.LONG_Rec = uLONG_Rec;
+                    record.REC = (int)uInput[0];
+                    record.YDS_Rec = (int)uInput[1];
+                    record.AVG_Rec = (double)uInput[2];
+                    record.LONG_Rec = (int)uInput[3];
+
+                    db.Entry(record).State = EntityState.Modified;
+
                 }
                 else
                 {
                     //Add new record
                     Stats record = new Stats()
                     {
-                        Player = currentPlayer,
-                        Team = currentTeam,
+                        PlayerId = currentPlayer.Id,
+                        TeamId = currentTeam.Id,
                         Season = season,
 
-                        REC = uREC,
-                        YDS_Rec = uYDS_Rec,
-                        AVG_Rec = uAVG_Rec,
-                        LONG_Rec = uLONG_Rec
+                        REC = (int)uInput[0],
+                        YDS_Rec = (int)uInput[1],
+                        AVG_Rec = (double)uInput[2],
+                        LONG_Rec = (int)uInput[3]
                     };
 
                     db.Stats.Add(record);

@@ -4,20 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using CollegeFB_Stats.Models;
+using System.Data.Entity;
 
 namespace CollegeFB_Stats.GetAddMethodClasses
 {
     class GetAddPass_Stats : InitialGet_Stats
     {
-        public static int uCMP;
-        public static int uATT;
-        public static int uYDS_Pass;
-        public static double uCMP_Percent;
-        public static double uYDS_A;
-        public static int uTD_Pass;
-        public static int uINT;
-        public static int uRAT;
-
+        public static List<float> uInput = new List<float>();
+        
         /**********************************************
          * GetPASSINGStats()
          ***********************************************/
@@ -25,60 +19,39 @@ namespace CollegeFB_Stats.GetAddMethodClasses
         {
             bool valid = false;
 
-            while (!valid)
+            float value;
+            List<string> passStats = new List<string>()
             {
-                Console.Write("CMP: ");
-                valid = int.TryParse(Console.ReadLine(), out uCMP);
+                "CMP",
+                "ATT",
+                "YDS_Pass",
+                "CMP_Percent",
+                "YDS_A",
+                "TD_Pass",
+                "INT",
+                "RAT"
             };
+            
+            foreach (var stat in passStats)
+            {
+                while (!valid)
+                {
+                    Console.WriteLine($"{stat}: ");
+                    valid = float.TryParse(Console.ReadLine(), out value);
 
-            valid = false;
-            while (!valid)
-            {
-                Console.Write("ATT: ");
-                valid = int.TryParse(Console.ReadLine(), out uATT);
-            };
-
-            valid = false;
-            while (!valid)
-            {
-                Console.Write("YDS: ");
-                valid = int.TryParse(Console.ReadLine(), out uYDS_Pass);
-            };
-
-            valid = false;
-            while (!valid)
-            {
-                Console.Write("CMP Percentage (45.0): ");
-                valid = double.TryParse(Console.ReadLine(), out uCMP_Percent);
-            };
-
-            valid = false;
-            while (!valid)
-            {
-                Console.Write("YDS Attempted: ");
-                valid = double.TryParse(Console.ReadLine(), out uYDS_A);
-            };
-
-            valid = false;
-            while (!valid)
-            {
-                Console.Write("TD: ");
-                valid = int.TryParse(Console.ReadLine(), out uTD_Pass);
-            };
-
-            valid = false;
-            while (!valid)
-            {
-                Console.Write("INT: ");
-                valid = int.TryParse(Console.ReadLine(), out uINT);
-            };
-
-            valid = false;
-            while (!valid)
-            {
-                Console.Write("RAT: ");
-                valid = int.TryParse(Console.ReadLine(), out uRAT);
-            };
+                    if (valid)
+                    {
+                        uInput.Add(value);
+                        break;  
+                    }
+                    else
+                    {
+                        Console.WriteLine("That is not a valid value.");
+                    }
+                }
+                valid = false;
+            }
+            
 
             AddPassingStats(currentPlayer, currentTeam, season);
 
@@ -101,14 +74,17 @@ namespace CollegeFB_Stats.GetAddMethodClasses
                     Stats record = db.Stats.First(s => s.PlayerId == currentPlayer.Id && s.TeamId == currentTeam.Id && s.Season == season);
 
                     //Update Record
-                    record.CMP = uCMP;
-                    record.ATT = uATT;
-                    record.YDS_Pass = uYDS_Pass;
-                    record.CMP_Percent = uCMP_Percent;
-                    record.YDS_A = uYDS_A;
-                    record.TD_Pass = uTD_Pass;
-                    record.INT = uINT;
-                    record.RAT = uRAT;
+                    record.CMP = (int)uInput[0];
+                    record.ATT = (int)uInput[1];
+                    record.YDS_Pass = (int)uInput[2];
+                    record.CMP_Percent = (double)uInput[3];
+                    record.YDS_A = (double)uInput[4];
+                    record.TD_Pass = (int)uInput[5];
+                    record.INT = (int)uInput[6];
+                    record.RAT = (int)uInput[7];
+
+                    db.Entry(record).State = EntityState.Modified;
+
                 }
 
                 else
@@ -116,26 +92,23 @@ namespace CollegeFB_Stats.GetAddMethodClasses
                     //Add new record
                     Stats record = new Stats()
                     {
-                        Player = currentPlayer,
-                        Team = currentTeam,
+                        PlayerId = currentPlayer.Id,
+                        TeamId = currentTeam.Id,
                         Season = season,
 
-                        CMP = uCMP,
-                        ATT = uATT,
-                        YDS_Pass = uYDS_Pass,
-                        CMP_Percent = uCMP_Percent,
-                        YDS_A = uYDS_A,
-                        TD_Pass = uTD_Pass,
-                        INT = uINT,
-                        RAT = uRAT
+                        CMP = (int)uInput[0],
+                        ATT = (int)uInput[1],
+                        YDS_Pass = (int)uInput[2],
+                        CMP_Percent = (double)uInput[3],
+                        YDS_A = (double)uInput[4],
+                        TD_Pass = (int)uInput[5],
+                        INT = (int)uInput[6],
+                        RAT = (int)uInput[7]
                     };
 
                     db.Stats.Add(record);
-
                 }
-
                 db.SaveChanges();
-
             }
         }
 
